@@ -1,0 +1,71 @@
+﻿@model DummyDataMaker.ViewModels.DataPoolViewModel
+
+@{
+    ViewData["Title"] = "Admin";
+}
+
+<h1>Admin Page - Manage DataPool for DummyDB.com</h1>
+
+<p>@ViewBag.Message</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstNamePools)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.FirstNamePools)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete this First Name", "DeleteFirstName", new { id=item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<label>Add First Name to data pool:</label>
+@using (Html.BeginForm("AddFirstName","Admin"))
+{
+    <input type="text" name="firstName" required />
+    <input type="submit" value="Add" />
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LastNamePools)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.LastNamePools)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete this Last Name", "DeleteLastName", new {  id=item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<label>Add Last Name to data pool:</label>
+@using (Html.BeginForm("AddLastName", "Admin"))
+{
+    <input type="text" name="lastName" required />
+    <input type="submit" value="Add" />
+}

@@ -1,0 +1,46 @@
+﻿@model DummyDataMaker.Models.GeneratedDatabase
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<h1>View</h1>
+
+<h4>GeneratedDatabase</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="View">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DatabaseName" class="control-label"></label>
+                <input asp-for="DatabaseName" class="form-control" />
+                <span asp-validation-for="DatabaseName" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="GenerateSQL" /> @Html.DisplayNameFor(model => model.GenerateSQL)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="GenerateCSharp" /> @Html.DisplayNameFor(model => model.GenerateCSharp)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumberOfTables" class="control-label"></label>
+                <input asp-for="NumberOfTables" class="form-control" />
+                <span asp-validation-for="NumberOfTables" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Continue" class="btn btn-primary" />
+                
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Start Over</a>
+</div>
+
