@@ -1,7 +1,14 @@
-﻿namespace DummyDataMaker.Models
+﻿using Microsoft.Build.Framework;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace DummyDataMaker.Models
 {
     public class GeneratedTable
     {
+        [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public string Name { get; set; }
         public List<GeneratedField>? GeneratedFields { get; set; }
 
         public GeneratedTable()
@@ -13,6 +20,10 @@
 
     public class GeneratedField
     {
+        [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
         public string? Name { get; set; }
         public AllDataTypes? Datatype { get; set; }
         public bool IsUnique { get; set; }

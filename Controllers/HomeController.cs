@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 namespace DummyDataMaker.Controllers
 {
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -17,15 +18,6 @@ namespace DummyDataMaker.Controllers
         {
             return View();
         }
-        public IActionResult DBForm()
-        {
-            return View();
-        }
-
-        public IActionResult SiteFlow()
-        {
-            return View();
-        }
 
         [HttpGet]
         public IActionResult GetStarted()
@@ -34,31 +26,19 @@ namespace DummyDataMaker.Controllers
         }
 
         [HttpPost]
-        public IActionResult GetStarted(GeneratedDatabase generatedDatabase)
+        public IActionResult GetStarted(GeneratedDatabase? generatedDatabase)
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction("CreateTable");
+                return View("GoodJob");
             }
-            return View();
+            return View("Index");
         }
 
         [HttpGet]
-        public IActionResult CreateTable()
+        public IActionResult GoodJob()
         {
             return View();
-        }
-
-        //[HttpPost]
-        //public IActionResult CreateTable(GeneratedDatabase generatedDatabase)
-        //{
-        //    return RedirectToAction("Finalize");
-        //}
-
-        [HttpGet]
-        public IActionResult Finalize(GeneratedDatabase generatedDatabase)
-        {
-            return View(generatedDatabase);
         }
 
 
