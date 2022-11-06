@@ -1,4 +1,5 @@
 ﻿using DummyDataMaker.Models;
+using DummyDataMaker.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,11 +8,14 @@ namespace DummyDataMaker.Controllers
 
     public class HomeController : Controller
     {
+        private IGenerateRepository _generateRepository;
+
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IGenerateRepository generateRepository )
         {
             _logger = logger;
+            _generateRepository = generateRepository;
         }
 
         public IActionResult Index()
@@ -22,11 +26,13 @@ namespace DummyDataMaker.Controllers
         [HttpGet]
         public IActionResult GetStarted()
         {
+            List<string> dataTypes = Enum.GetNames(typeof(AllDataTypes)).Cast<string>().ToList();
+            ViewBag.DataTypeOptions = dataTypes;
             return View();
         }
 
         [HttpPost]
-        public IActionResult GetStarted(GeneratedDatabase? generatedDatabase)
+        public IActionResult GetStarted(string dbName)
         {
             if (ModelState.IsValid)
             {
@@ -40,7 +46,6 @@ namespace DummyDataMaker.Controllers
         {
             return View();
         }
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

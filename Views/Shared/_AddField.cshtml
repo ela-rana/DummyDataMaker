@@ -1,0 +1,13 @@
+﻿@{
+    GeneratedField myField = new GeneratedField();
+}
+
+<h3>Enter field data:</h3>
+<label>Field Name:</label>
+@Html.TextBoxFor(model => myField.Name, htmlAttributes: new {@class = "form-control"})
+<br />
+<label>Field Type:</label>
+@Html.DropDownListFor(model => myField.Datatype, new SelectList(ViewBag.DataTypeOptions), "Select from dropdown",
+                htmlAttributes: new {@class = "form-control"})
+<button value="AddAnotherField" onclick="_">Add Another Field</button>
+<br />

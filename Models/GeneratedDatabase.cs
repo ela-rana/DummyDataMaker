@@ -8,18 +8,12 @@ namespace DummyDataMaker.Models
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public bool GenerateSQL { get; set; }
-       
-        public bool GenerateCSharp { get; set; }
 
         [Required]
-        public string? DatabaseName { get; set; }
+        public string? Name { get; set; }
             
-        public List<GeneratedTable> GeneratedTables { get; set; }
-
-        public GeneratedDatabase()
-        {
-            this.GeneratedTables = new List<GeneratedTable>();
-        }
+        public string? User { get; set; }
+        
+        public virtual ICollection<GeneratedTable> GeneratedTables { get; set; }
     }
 }

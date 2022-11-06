@@ -11,6 +11,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 
+builder.Services.AddScoped<IGenerateRepository, GenerateRepository>();
+
 builder.Services.AddIdentity<User, IdentityRole>(options => {
     options.Password.RequireUppercase = false;
     options.Password.RequireNonAlphanumeric = false;
@@ -22,6 +24,8 @@ builder.Services.AddDbContext<UserContext>(options => options.UseSqlServer(
 builder.Services.AddDbContext<DataPoolContext>(options => options.UseSqlServer(
     "Server=ELAPC;Database=DummyDBDataPool;Trusted_Connection=true;MultipleActiveResultSets=True"));
 
+builder.Services.AddDbContext<GenerateContext>(options => options.UseSqlServer(
+    "Server=ELAPC;Database=DummyDBGenerate;Trusted_Connection=true;MultipleActiveResultSets=True"));
 
 
 var app = builder.Build();
@@ -41,6 +45,12 @@ using (var scope = app.Services.CreateScope())
     var dataPoolContext = scope.ServiceProvider.GetRequiredService<DataPoolContext>();
     //dataPoolContext.Database.EnsureDeleted();
     dataPoolContext.Database.EnsureCreated(); //creates the database if it doesn't already exist
+
+    var generateContext = scope.ServiceProvider.GetRequiredService<GenerateContext>();
+    //generateContext.Database.EnsureDeleted();
+    generateContext.Database.EnsureCreated(); //creates the database if it doesn't already exist
+
+
 }
 
 

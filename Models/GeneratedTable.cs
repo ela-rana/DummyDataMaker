@@ -9,13 +9,10 @@ namespace DummyDataMaker.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<GeneratedField>? GeneratedFields { get; set; }
+        public int DatabaseID { get; set; }
 
-        public GeneratedTable()
-        {
-            this.GeneratedFields = new List<GeneratedField>();
-        }
-
+        public virtual GeneratedDatabase Database { get; set; } = null!;
+        public virtual ICollection<GeneratedField> GeneratedFields { get; set; }
     }
 
     public class GeneratedField
@@ -26,9 +23,13 @@ namespace DummyDataMaker.Models
 
         public string? Name { get; set; }
         public AllDataTypes? Datatype { get; set; }
-        public bool IsUnique { get; set; }
-        public bool IsPrimaryKey { get; set; }
         
+        public int TableID { get; set; }
+
+        public virtual GeneratedTable Table { get; set; } = null!;
+
+        //public bool IsUnique { get; set; }
+        //public bool IsPrimaryKey { get; set; }
         //public bool IsForeignKey { get; set; }
     }
 
