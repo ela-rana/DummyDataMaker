@@ -21,7 +21,10 @@ namespace DummyDataMaker.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
+        [Required]
         public string? Name { get; set; }
+
+        [Required]
         public AllDataTypes? Datatype { get; set; }
         
         public int TableID { get; set; }

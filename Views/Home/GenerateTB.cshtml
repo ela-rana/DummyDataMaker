@@ -12,12 +12,12 @@
         document.getElementById("FieldPlaceholder").appendChild(oClone);
     }
     
-    function SetRedirect(s){
-        if(s=="AddTable"){
-            var url = @Url.Action("GenerateTB", "Home", new{ nextAction = "AddTable"});
-            window.location.href = url;
-        }
-    }
+    //function SetRedirect(s){
+    //    if(s=="AddTable"){
+    //        var url = @Url.Action("GenerateTB", "Home", new{ nextAction = "AddTable"});
+    //        window.location.href = url;
+    //    }
+    //}
 </script>
 
 <style>
@@ -30,12 +30,7 @@
     }
 </style>
 
-@*<%=Html.ActionLink("Next Page >", "SearchResults", new {
-    search = this.Model,
-    page = 1 //or whatever
-}) %>*@
-
-@using (Html.BeginForm("GenerateTB", "Home", new{s= myAction}))
+@using (Html.BeginForm("GenerateTB", "Home",FormMethod.Post))
 {
     <!-- Database -->
     <div class="StepSection" id="nameDB">
@@ -58,16 +53,13 @@
                 <label>Field Name:</label>
                 @Html.TextBoxFor(model => myField.Name, htmlAttributes: new {@class = "form-control"})
                 <label>Field Type:</label>
-                @Html.DropDownListFor(model => myField.Datatype, new SelectList(ViewBag.DataTypeOptions), /*"Select from dropdown",*/
-            htmlAttributes: new {@class = "form-control"})
-                <input type="button" value="Add Another Field" onclick="AddField()" /> <br />
+                @Html.DropDownListFor(model => myField.Datatype, new SelectList(ViewBag.DataTypeOptions), "Click here to Select from dropdown",
+                    htmlAttributes: new {@class = "form-control"})
             </div>
         </div>
+        <input type="button" value="Add Another Field" onclick="AddField()" /> <br />
     </div>
-
-    <br />
-    <input type="button" value="Add Another Table" onclick="SetRedirect('AddTable')"/>
-    <input type="submit" value="Finish" onsubmit="SetRedirect('Finish')" />
+    <input type="submit" value="Continue" />
 }
 
 <input type="button" value="Back" onclick="history.back()" />

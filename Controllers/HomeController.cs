@@ -65,9 +65,13 @@ namespace DummyDataMaker.Controllers
         }
 
         [HttpPost]
-        public IActionResult GenerateTB(string nextAction)
+        public IActionResult GenerateTB()
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                return View("Index");
+            }
+            return View("CustomError");
         }
 
 
