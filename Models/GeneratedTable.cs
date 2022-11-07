@@ -6,7 +6,7 @@ namespace DummyDataMaker.Models
     public class GeneratedTable
     {
         [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
         public string Name { get; set; }
         public int DatabaseID { get; set; }
@@ -18,7 +18,7 @@ namespace DummyDataMaker.Models
     public class GeneratedField
     {
         [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         public string? Name { get; set; }

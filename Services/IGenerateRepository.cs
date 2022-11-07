@@ -1,4 +1,6 @@
-﻿namespace DummyDataMaker.Services
+﻿using DummyDataMaker.Models;
+
+namespace DummyDataMaker.Services
 {
     /// <summary>
     /// Defines all types of actions that can be performed on our DataGeneration Database 
@@ -6,29 +8,66 @@
     /// </summary>
     public interface IGenerateRepository
     {
-        void AddDatabase(string databaseName);
+        void AddDatabase(GeneratedDatabase db);
 
-        void AddTable(string tableName);
+        void AddTable(GeneratedTable tb);
 
-        void AddField(string fieldName);
+        void AddField(GeneratedField fd);
+
+        int MaxDatabaseID();
+        int MaxTableID();
+        int MaxFieldID();
+
     }
 
 
     public class GenerateRepository : IGenerateRepository
     {
-        public void AddDatabase(string databaseName)
+        private GenerateContext _generateContext;
+        public GenerateRepository(GenerateContext generateContext)
         {
-            throw new NotImplementedException();
+            _generateContext = generateContext;
+        }
+        public void AddDatabase(GeneratedDatabase db)
+        {
+            _generateContext.GeneratedDatabases.Add(db);
+            _generateContext.SaveChanges();
         }
 
-        public void AddField(string fieldName)
+        public void AddTable(GeneratedTable tb)
         {
-            throw new NotImplementedException();
+            _generateContext.GeneratedTables.Add(tb);
+            _generateContext.SaveChanges();
         }
 
-        public void AddTable(string tableName)
+        public void AddField(GeneratedField fd)
         {
-            throw new NotImplementedException();
+            _generateContext.GeneratedFields.Add(fd);
+            _generateContext.SaveChanges();
+        }
+
+        public int MaxDatabaseID()
+        {
+            try
+            {
+                int max = _generateContext.GeneratedDatabases.Max(x => x.Id);
+                return max;
+            }
+            catch(Exception)
+            {
+                return 0;
+            }
+            
+        }
+
+        public int MaxTableID()
+        {
+            return _generateContext.GeneratedTables.Max(x => x.Id);
+        }
+
+        public int MaxFieldID()
+        {
+            return _generateContext.GeneratedFields.Max(x => x.Id);
         }
     }
 }

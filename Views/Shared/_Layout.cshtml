@@ -33,6 +33,9 @@
                             <a class="nav-link" style="color:#352620" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" style="color:#352620" asp-controller="Home" asp-action="GenerateDB">Generate Data</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" style="color:#352620" asp-controller="Home" asp-action="GetStarted">Get Started</a>
                         </li>
                         @if (User.Identity.IsAuthenticated)

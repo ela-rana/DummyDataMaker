@@ -19,6 +19,13 @@
         oClone.id += (_tablecount + "");
         document.getElementById("TablePlaceholder").appendChild(oClone);
     }
+    var _fieldcount = 1;
+    function AddField() {
+        _fieldcount++;
+        var oClone = document.getElementById("FieldTemplate").cloneNode(true);
+        oClone.id += (_fieldcount + "");
+        document.getElementById("FieldPlaceholder").appendChild(oClone);
+    }
 </script>
 
 <style>
@@ -53,13 +60,18 @@
                 <h1>Name your Table/Object</h1>
                 @Html.TextBoxFor(model => myTB.Name, htmlAttributes: new {@class = "form-control"})
                 <br />
-                <h3>Enter field data:</h3>
-                <label>Field Name:</label>
-                @Html.TextBoxFor(model => myField.Name, htmlAttributes: new {@class = "form-control"})
-                <label>Field Type:</label>
-                @Html.DropDownListFor(model => myField.Datatype, new SelectList(ViewBag.DataTypeOptions), /*"Select from dropdown",*/ 
-                    htmlAttributes: new {@class = "form-control"})
-                <input type="button" value="Add Another Field" onclick="" /> <br />
+
+                <div id="FieldPlaceholder">
+                    <div id="FieldTemplate">
+                        <h3>Enter field data:</h3>
+                        <label>Field Name:</label>
+                        @Html.TextBoxFor(model => myField.Name, htmlAttributes: new {@class = "form-control"})
+                        <label>Field Type:</label>
+                        @Html.DropDownListFor(model => myField.Datatype, new SelectList(ViewBag.DataTypeOptions), /*"Select from dropdown",*/ 
+                            htmlAttributes: new {@class = "form-control"})
+                        <input type="button" value="Add Another Field" onclick="AddField()" /> <br />
+                    </div>
+                </div>
             </div>
         </div>
         <input type="button" value="Add Another Table" onclick="AddTable()" />

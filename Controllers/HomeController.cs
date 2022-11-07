@@ -9,13 +9,14 @@ namespace DummyDataMaker.Controllers
     public class HomeController : Controller
     {
         private IGenerateRepository _generateRepository;
-
+        private GeneratedDatabase generatedDatabase;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger, IGenerateRepository generateRepository )
+        public HomeController(ILogger<HomeController> logger, IGenerateRepository generateRepository)
         {
             _logger = logger;
             _generateRepository = generateRepository;
+            generatedDatabase = new GeneratedDatabase();
         }
 
         public IActionResult Index()
@@ -23,26 +24,55 @@ namespace DummyDataMaker.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult GetStarted()
+        public IActionResult GenerateDB()
         {
-            List<string> dataTypes = Enum.GetNames(typeof(AllDataTypes)).Cast<string>().ToList();
-            ViewBag.DataTypeOptions = dataTypes;
             return View();
         }
 
         [HttpPost]
-        public IActionResult GetStarted(string dbName)
+        public IActionResult GenerateDB(string dbName)
         {
+
             if (ModelState.IsValid)
             {
-                return View("GoodJob");
+                generatedDatabase.Name = dbName;
+                generatedDatabase.Id = _generateRepository.MaxDatabaseID()+1;
+                if (User.Identity.IsAuthenticated) 
+                {
+                    generatedDatabase.User = User.Identity.Name;
+                }
+                else
+                {
+                    generatedDatabase.User = "Guest User";
+                }
+                _generateRepository.AddDatabase(generatedDatabase);
+                return RedirectToAction("GenerateTB", new {DBID=generatedDatabase.Id, DBName=generatedDatabase.Name});
             }
-            return View("Index");
+            else
+            {
+                return View("CustomError");
+            }
         }
 
         [HttpGet]
-        public IActionResult GoodJob()
+        public IActionResult GenerateTB(int DBId, string DBName)
+        {
+            List<string> dataTypes = Enum.GetNames(typeof(AllDataTypes)).Cast<string>().ToList();
+            ViewBag.DataTypeOptions = dataTypes;
+            ViewBag.DBId = DBId;
+            ViewBag.DBName = DBName;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult GenerateTB(string nextAction)
+        {
+            return View();
+        }
+
+
+
+        public IActionResult CustomError()
         {
             return View();
         }
